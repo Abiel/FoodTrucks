@@ -35,29 +35,51 @@
     </script>
     
     <script type="text/javascript">
-      var truckMarkers = [new google.maps.LatLng(37.7951490737255,-122.422248184604),
-                          new google.maps.LatLng(37.7911490737255,-122.426268184604),
-                          new google.maps.LatLng(37.7921990737255,-122.429278184604)];
+    
+      var truckMarkers = new Array();
+      <c:forEach var="truck" varStatus="status" items="${truckList}" > 
+			truckMarkers[<c:out value="${status.index}" />] = new google.maps.LatLng(<c:out value="${truck.latitude}" />, <c:out value="${truck.longitude}" /> ) ;
+	  </c:forEach>			
+                          
       
       function loadTruckMarkers(currentMap){
     	  for(i=0; i<truckMarkers.length; i++){
     		  var marker = new google.maps.Marker({
     	            position: truckMarkers[i],
     	            map: currentMap,
-    	            title: 'Hello World!'
+    	            title: 'Truck: '
     	        });
     	  }
+      }
+      
+      function loadAddressMarker(currentMap){
+    	  var marker = new google.maps.Marker({
+    		  map: currentMap,
+    		  position: new google.maps.LatLng(<c:out value="${address.latitude}" /> , <c:out value="${address.longitude}" />),
+    		  title: 'You are here.'
+    		});
+
+    		// Add circle overlay and bind to marker
+    		var circle = new google.maps.Circle({
+    		  map: currentMap,
+    		  radius: 360,    // 0.003 degrees in metres (assuming 1'=111km)
+    		  fillColor: '#0000AA',
+    		  strokeColor: '#7777EE',
+    		  strokeWeight: 2,
+    		  strokeOpacity: 0.5
+    		});
+    		circle.bindTo('center', marker, 'position');
       }
       
       function initialize() {
     	  
         var mapOptions = {
-          center: new google.maps.LatLng(37.7901490737255,-122.422258184604),
-          zoom: 15
+          center: new google.maps.LatLng(37.7801490737255,-122.422258184604),
+          zoom: 14
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
         loadTruckMarkers(map);
-        
+        loadAddressMarker(map);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -69,29 +91,35 @@
   <div id="foodTruckPanel">
 	<h2> &gt;&gt; Food Trucks </h2>
 	
-	<!-- Search and button -->
-	<div class="input-group">
-      <input type="text" class="form-control">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
-      </span>
-    </div><!-- /input-group -->
-    
+	<!-- Search Form -->
+	<form:form method="POST" action="welcome.htm">
+		<div class="input-group">
+	      <input name="address" type="text" class="form-control">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="submit">Search</button>
+	      </span>
+	    </div><!-- /input-group -->
+    </form:form>
     
 	<div id="trial"> 
   	</div>
     <table id="myTable" class="table table-condensed">
   		<thead>
 	    	<tr>
-	      		<th>#</th>
-	      		<th>Food Type | Name</th>
+	      		<th>Food Type</th>
 	    	</tr>
   		</thead>
 	  	<tbody>
-	      	<tr>
-	        	<td>Starting</td>
-	        	<td> </td>
-	      	</tr>
+	      <c:forEach var="truck" varStatus="status" items="${truckList}" >
+	      		<tr>
+		        	<td> 
+		        		<c:out value="${truck.fooditems}" />
+		        		<br/><b>Catered by:</b>
+	            		<c:out value="${truck.applicant}" />  
+					</td>
+		      	</tr>
+	      </c:forEach>
+	      	
 	  	</tbody>
   	</table>
   </div>

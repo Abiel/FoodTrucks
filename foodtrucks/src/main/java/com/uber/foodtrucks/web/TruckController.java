@@ -5,13 +5,20 @@ package com.uber.foodtrucks.web;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.uber.foodtrucks.domain.Location;
+import com.uber.foodtrucks.domain.Truck;
 import com.uber.foodtrucks.services.TruckService;
 
 /**
@@ -25,21 +32,19 @@ public class TruckController {
 	
 	public TruckController() {
 	}
-	
-	/*public TruckService getTruckService() {
-		return truckService;
-	}
-
-	public void setTruckService(TruckService truckService) {
-		this.truckService = truckService;
-	}*/
 
 	@RequestMapping("/welcome")
-	public String welcome(Model model) 
+	public String welcome(@RequestParam(required = false) String address, Model model) 
 	{
-		System.out.println("welcome controller.");
+		List<Truck> truckList = new ArrayList<Truck>();
+		Location addressLoc = new Location();
 		try {
-			truckService.getAllTrucks();
+			if(address!=null){
+				truckList = truckService.getTrucks(address);
+				JSONObject latLng = truckService.getLatLng(address);
+				addressLoc.setLatitude(latLng.has("lat")?latLng.getDouble("lat"):0);
+				addressLoc.setLongitude(latLng.has("lng")?latLng.getDouble("lng"):0);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
@@ -49,8 +54,12 @@ public class TruckController {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("truckList", truckList);
+		model.addAttribute("address", addressLoc);
 		return "welcome";
 	}
+	
+	
 
 	public static void main(String[] args) {
 
