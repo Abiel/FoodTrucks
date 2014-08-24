@@ -21,7 +21,7 @@ The following technologies are used to implement Food Trucks V1.0
 <li>3rd Party APIs</li>
 </ol>
 
-###How to start start developing###
+###How to start developing###
 Want to be a committer for FoodTrucks? 
 Clone the project:
 ```
@@ -34,7 +34,7 @@ git commit -m "A very detailed comment of what is done should be here."
 git push origin master
 ```
 
-###How to deploy### 
+###How to deploy###
 Please deploy the app only when there are 0 test failures and 0 test errors. To run tests:
 ```
 mvn test
@@ -56,9 +56,9 @@ Under src/main/test a set of unit tests are included. Whenever a feature is impl
 ###Next Features###
 In no particular order we have the following features to be implemented:
 <ul>
-<li>User management: enable users to signup and create simple profile</li>
+<li>User management: enable users to signup and create simple profiles.</li>
 <li>User Reviews & Likes: enabling users to review, like, and rate trucks.</li>
-<li>Recommendations & user targeting: based on their reviews & likes, recommend trucks to users</li>
+<li>Recommendations & user targeting: based on their reviews & likes, recommend trucks to users.</li>
 <li>Sentiment Analysis: a feature for truck owners to get analysis of what users are discussing regarding their service.</li>
 </ul>
 
