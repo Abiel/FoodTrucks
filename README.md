@@ -15,19 +15,19 @@ It mashes up the following APIs to achieve its goal.
 The following technologies are used to implement Food Trucks V1.0
 
 <ol>
-<li>Bootstrap 3.0 | JQuery | CSS </li>
+<li>Bootstrap 3.0 | JS | JQuery | CSS </li>
 <li>JSP</li>
-<li>Spring | Java</li>
+<li>Spring | Java | Maven</li>
 <li>3rd Party APIs</li>
 </ol>
 
-###How to start start developing### 
-Want to be a committer in FoodTrucks? 
+###How to start start developing###
+Want to be a committer for FoodTrucks? 
 Clone the project:
 ```
 git clone https://github.com/Abiel/FoodTrucks.git
 ```
-Notify the team of any feature you are working, implement your changes and push as follows
+Notify the team of any feature you are working, implement your changes and push your changes as follows
 ```
 git add -A
 git commit -m "A very detailed comment of what is done should be here."
@@ -44,6 +44,10 @@ To generate war file to be deployed:
 mvn war:war
 ```
 scp ths file to our server and deploy it in our server.
+```
+scp foodtrucks.war ubuntu@10.1.345.678
+sudo cp foodtrucks.war /usr/lib/tomcat7/webapps/
+```
 
 ###Unit Tests###
 Under src/main/test a set of unit tests are included. Whenever a feature is implemented and/or modified please include all tests that validate those changes. Make sure all tests are passing.
