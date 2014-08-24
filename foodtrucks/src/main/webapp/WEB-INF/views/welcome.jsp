@@ -93,7 +93,7 @@ body {
 		// Add circle overlay and bind to marker
 		var circle = new google.maps.Circle({
 			map : currentMap,
-			radius : 360, // 0.003 degrees in metres (assuming 1'=111km)
+			radius : 390, // 0.003 degrees in metres (assuming 1'=111km)
 			fillColor : '#0000AA',
 			strokeColor : '#7777EE',
 			strokeWeight : 2,
@@ -103,10 +103,12 @@ body {
 	}
 
 	function initialize() {
-
+		var lat= <c:out value="${address.latitude}" />;
+		var lng= <c:out value="${address.longitude}" />;
+		var zoom= <c:out value="${zoom}" />;
 		var mapOptions = {
-			center : new google.maps.LatLng(37.7801490737255, -122.422258184604),
-			zoom : 14
+			center : new google.maps.LatLng(lat, lng),
+			zoom : zoom
 		};
 		var map = new google.maps.Map(document.getElementById("map-canvas"),
 				mapOptions);
@@ -133,7 +135,7 @@ body {
 				</div>
 				<!-- /input-group -->
 			</form:form>
-
+			<div style="align:center; color:#ff5555;"><p align="center"><c:out value="${addressError}" /></p></div>
 			<table id="myTable" class="table table-condensed">
 				<thead>
 					<tr>
