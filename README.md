@@ -21,7 +21,7 @@ The following technologies are used to implement Food Trucks V1.0
 <li>3rd Party APIs</li>
 </ol>
 
-###How to start start developing ### 
+###How to start start developing### 
 Want to be a committer in FoodTrucks? 
 Clone the project:
 ```
@@ -45,7 +45,7 @@ mvn war:war
 ```
 scp ths file to our server and deploy it in our server.
 
-###Unit Tests:###
+###Unit Tests###
 Under src/main/test a set of unit tests are included. Whenever a feature is implemented and/or modified please include all tests that validate those changes. Make sure all tests are passing.
 ![Food Trucks V1.0](https://raw.githubusercontent.com/Abiel/FoodTrucks/master/doc/tests.png)
 
