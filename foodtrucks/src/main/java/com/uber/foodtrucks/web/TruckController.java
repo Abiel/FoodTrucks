@@ -70,10 +70,7 @@ public class TruckController {
 		return "welcome";
 	}
 	
-	
-
 	public static void main(String[] args) {
-
 	}
 
 }

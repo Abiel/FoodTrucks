@@ -7,11 +7,7 @@ package com.uber.foodtrucks.constants;
  * @author abiel_m_woldu
  *
  */
-public final class Const {
-
-	//app related constants
-	public static class APP{
-	}
+public final class APP {
 	
 	public static class URI {
 		public static String GEOCODE_API = "maps.googleapis.com";

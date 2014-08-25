@@ -19,7 +19,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
-import com.uber.foodtrucks.constants.Const;
+import com.uber.foodtrucks.constants.APP;
 import com.uber.foodtrucks.custom_exception.AddressNotFoundException;
 import com.uber.foodtrucks.domain.Truck;
 import com.uber.foodtrucks.utils.HttpResponseHandler;
@@ -52,7 +52,7 @@ public class TruckService {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		String longitudeSubQuery = "longitude > " + (latLng.getDouble("lng") - radius) + " AND longitude < " + (latLng.getDouble("lng") + radius);
 		String latitudeSubQuery = " latitude > " + (latLng.getDouble("lat") - radius) + " AND latitude < " + (latLng.getDouble("lat") + radius);
-        URI uri = new URIBuilder().setScheme("http").setHost(Const.URI.FOOD_TRUCK_API).setPath(Const.URI.FOOD_TRUCK_PATH).setParameter("$where", longitudeSubQuery + " AND " + latitudeSubQuery).build();
+        URI uri = new URIBuilder().setScheme("http").setHost(APP.URI.FOOD_TRUCK_API).setPath(APP.URI.FOOD_TRUCK_PATH).setParameter("$where", longitudeSubQuery + " AND " + latitudeSubQuery).build();
         HttpGet httpgetTrucks = new HttpGet(uri);
 		ResponseHandler<String> responseHandlerTrucks = new HttpResponseHandler();
         String responseBodyTrucks = httpclient.execute(httpgetTrucks, responseHandlerTrucks);
@@ -91,7 +91,7 @@ public class TruckService {
 	 */
 	public JSONObject getLatLng(String address) throws ClientProtocolException, IOException, JSONException, URISyntaxException, AddressNotFoundException{
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		URI uri = new URIBuilder().setScheme("https").setHost(Const.URI.GEOCODE_API).setPath(Const.URI.GEOCODE_PATH).setParameter("address", address).build();
+		URI uri = new URIBuilder().setScheme("https").setHost(APP.URI.GEOCODE_API).setPath(APP.URI.GEOCODE_PATH).setParameter("address", address).build();
 		HttpGet httpget = new HttpGet(uri);
 		ResponseHandler<String> responseHandler = new HttpResponseHandler();
         String responseBody = httpclient.execute(httpget, responseHandler);
